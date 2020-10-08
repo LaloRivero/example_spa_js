@@ -1,16 +1,26 @@
-// Template home base
+//template base del home
 
-const Home = () =>{
+import getData from '../utils/getData'
+
+const Home = async () =>{
+    const characters = await getData()
     const view = `
     <div class = "Characters">
-        <article class="Character item">
-            <a href='#/1/">
-                <img src="img" alt="img name">
-                <h3>Name</h3>
-            </a>
-        </article>
-    </div>`
-    return view
-}
+        ${characters.results.map(character =>`
+            <article class="Character-item">
+                <a href="#/${character.id}/">
+                    <img src="${character.image}" alt="${character.name}">
+                    <h3>${character.name}</h3>
+                </a>
+            </article>
+            `
+        ).join('')}
+    </div>
+    `;
 
-export default Home
+    return view;
+
+};
+
+
+export default Home;
